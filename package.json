@@ -1,0 +1,20 @@
+{
+  "name": "tileproxy",
+  "version": "0.0.1",
+  "description": "tileproxy",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/gjn/ffive"
+  },
+  "author": {
+    "name": "Gilbert Jeiziner",
+    "email": "gjn@space.ch"
+  },
+  "readmeFileName": "README.md",
+  "dependencies": {
+    "http-proxy": "1.11.1"
+  },
+  "licence": "MIT"
+}
+
