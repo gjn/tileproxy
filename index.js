@@ -1,20 +1,32 @@
 var http = require('http');
 var httpProxy = require('http-proxy');
 
-var zoomRange = [15, 17];
+var zoomRange = [9, 14];
 
 var config = {
-  15: {
-    xRange: [34190, 34191],
-    yRange: [24881, 24882]
+  9: {
+    xRange: [0, 100000000],
+    yRange: [0, 100000000]
   },
-  16: {
-    xRange: [68381, 68402],
-    yRange: [49763, 49783]
+  10: {
+    xRange: [0, 100000000],
+    yRange: [0, 100000000]
   },
-  17: {
-    xRange: [136772, 136804],
-    yRange: [99527, 99566]
+  11: {
+    xRange: [0, 100000000],
+    yRange: [0, 100000000]
+  },
+  12: {
+    xRange: [0, 100000000],
+    yRange: [0, 100000000]
+  },
+  13: {
+    xRange: [0, 100000000],
+    yRange: [0, 100000000]
+  },
+  14: {
+    xRange: [0, 100000000],
+    yRange: [0, 100000000]
   }
 };
 
@@ -24,6 +36,8 @@ var inRange = function(val, range) {
   }
   return false;
 }
+
+var port = 9015;
 
 var proxy = httpProxy.createProxyServer({});
 
@@ -60,4 +74,4 @@ http.createServer(function(req, client_res) {
     target: target
   });
 
-}).listen(9014);
+}).listen(port);
