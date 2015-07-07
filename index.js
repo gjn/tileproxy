@@ -1,9 +1,34 @@
 var http = require('http');
 var httpProxy = require('http-proxy');
 
-var zoomRange = [17, 17];
-var xRange = [136772, 136814];
-var yRange = [99527, 99547];
+var zoomRange = [9, 14];
+
+var config = {
+  9: {
+    xRange: [0, 100000000],
+    yRange: [0, 100000000]
+  },
+  10: {
+    xRange: [0, 100000000],
+    yRange: [0, 100000000]
+  },
+  11: {
+    xRange: [0, 100000000],
+    yRange: [0, 100000000]
+  },
+  12: {
+    xRange: [0, 100000000],
+    yRange: [0, 100000000]
+  },
+  13: {
+    xRange: [0, 100000000],
+    yRange: [0, 100000000]
+  },
+  14: {
+    xRange: [0, 100000000],
+    yRange: [0, 100000000]
+  }
+};
 
 var inRange = function(val, range) {
   if (val >= range[0] && val <= range[1]) {
@@ -11,6 +36,8 @@ var inRange = function(val, range) {
   }
   return false;
 }
+
+var port = 9015;
 
 var proxy = httpProxy.createProxyServer({});
 
@@ -29,12 +56,15 @@ http.createServer(function(req, client_res) {
     var x = parseInt(matches[2]);
     var y = parseInt(matches[3]);
     if (!isNaN(zoom) && !isNaN(x) && !isNaN(y)) {
-      if (inRange(zoom, zoomRange) &&
-          inRange(x, xRange) &&
-          inRange(y, yRange)) {
-        options.hostname = 'tms3d.geo.admin.ch.s3.amazonaws.com'
-        options.path = req.url.split('/tiles')[1]
-        console.log('Going with our tiles now!' + options.hostname + options.path);
+      if (inRange(zoom, zoomRange)) {
+        var xRange = config[zoom].xRange;
+        var yRange = config[zoom].yRange;
+        if (inRange(x, xRange) &&
+            inRange(y, yRange)) {
+          options.hostname = 'tms3d.geo.admin.ch.s3.amazonaws.com'
+          options.path = req.url.split('/tiles')[1]
+          console.log('Going with our tiles now!' + options.hostname + options.path);
+        }
       }
     }
   }
@@ -44,5 +74,4 @@ http.createServer(function(req, client_res) {
     target: target
   });
 
-}).listen(9014);
-
+}).listen(port);
